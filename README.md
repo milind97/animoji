@@ -1,2 +1,2 @@
 # animoji
-Animoji for android
+Animoji for desktop
