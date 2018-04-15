@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
@@ -16,7 +16,7 @@ body, html {
 .bgimg-1 {
     background-position: center;
     background-size: cover;
-    background-image: url("/w3images/mac.jpg");
+    background-image:;
     min-height: 100%;
 }
 .w3-bar .w3-button {
@@ -58,7 +58,7 @@ body, html {
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">Start something that matters</span><br>
     <span class="w3-large">Stop wasting valuable time with projects that just isn't you.</span>
     <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
-  </div> 
+  </div>
 </header>
 
 
@@ -70,10 +70,10 @@ body, html {
       <h3>Animoji</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
       <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th">�</i> View Our Works</a></p>
-      <button>Try it yourself</button>
+      <input id="start" type="button" value="Try it yourself"/>
     </div>
     <div class="w3-col m6">
-      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="230" height="350">
+      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="600" height="600" id="image">
     </div>
   </div>
 </div>
@@ -85,7 +85,7 @@ body, html {
   <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="/w3images/team2.jpg" alt="John" style="width:100%">
+        <img alt="John" style="width:100%">
         <div class="w3-container">
           <h3>John Doe</h3>
           <p class="w3-opacity">CEO & Founder</p>
@@ -96,7 +96,7 @@ body, html {
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
+        <img alt="Jane" style="width:100%">
         <div class="w3-container">
           <h3>Anja Doe</h3>
           <p class="w3-opacity">Art Director</p>
@@ -108,7 +108,7 @@ body, html {
 
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="/w3images/team4.jpg" alt="Dan" style="width:100%">
+        <img alt="Dan" style="width:100%">
         <div class="w3-container">
           <h3>Dan Star</h3>
           <p class="w3-opacity">Designer</p>
@@ -129,6 +129,13 @@ body, html {
   </div>
 </div>
 
+<div class="w3-left">
+  <video hidden id="camera" ></video>
+</div>
+<div class="w3-right">
+  <canvas hidden id="canvas"> yha hu me</canvas>
+</div>
+
 
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
@@ -141,40 +148,77 @@ body, html {
     <i class="fa fa-twitter w3-hover-opacity"></i>
     <i class="fa fa-linkedin w3-hover-opacity"></i>
   </div>
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
- 
-
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
-
-
-// Toggle between showing and hiding the sidebar when clicking the menu icon
-var mySidebar = document.getElementById("mySidebar");
-
-function w3_open() {
-    if (mySidebar.style.display === 'block') {
-        mySidebar.style.display = 'none';
-    } else {
-        mySidebar.style.display = 'block';
-    }
-}
-
-// Close the sidebar with the close button
-function w3_close() {
-    mySidebar.style.display = "none";
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
 
 </body>
+<script type="text/javascript">
+  button = document.getElementById('start');
+img = document.getElementById('image');
+video = document.getElementById('camera')[0];
+canvas = document.getElementById('canvas');
+
+navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia);
+
+//socket initialization
+    var chatSocket = new WebSocket(
+      'ws://' + window.location.host +
+      '/websocket');
+
+  //server response
+    chatSocket.onmessage = function (e) {
+
+      // Jsonn recieved
+      var data = JSON.parse(e.data);
+      var message = data['message'];
+      img.src = 'data:image/png;base64,' +message;
+
+    };
+
+    chatSocket.onclose = function (e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function (e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    button.onclick = function (){
+
+      navigator.getMedia(
+        // constraints
+        { video: true, audio: false },
+
+        // success callback
+        function (localMediaStreamTrack) {
+
+          video.srcObject = localMediaStreamTrack;
+          video.play();
+        },
+
+        //handle error
+        function (error) {
+
+          document.write("Webcam not working");
+          console.log(error);
+        });
+
+        setInterval(capture_frame, 320);
+    };
+
+    var context = canvas.getContext('2d');
+
+    function capture_frame () {
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0);
+      var json_base64 = JSON.stringify(
+        {'message': canvas.toDataURL('image/jpg')})
+      chatSocket.send(json_base64);
+    }
+</script>
+
 </html>

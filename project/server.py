@@ -19,6 +19,7 @@ predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 prev_shape = []
 pool = ThreadPool(processes=25)
 
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html")
@@ -72,7 +73,7 @@ if __name__ == "__main__":
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
     sock.setblocking(0)
-    sockets = tornado.netutil.bind_sockets(8000)
+    sockets = tornado.netutil.bind_sockets(8001)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server = tornado.httpserver.HTTPServer(make_app())
     server.add_sockets(sockets)
