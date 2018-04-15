@@ -5,7 +5,7 @@ import dlib
 import cv2
 import time
 import numpy as np
-#from PIL import ImageEnhance, Image
+from PIL import ImageEnhance, Image
 
 
 def enhance(frame):
@@ -195,7 +195,7 @@ def start():
             frame = imutils.resize(frame, width=600)
 
             # Calling function to enhance the frame(for better landmark detection)
-            #frame = enhance(frame)
+            frame = enhance(frame)
 
             # converting frame to grayscale
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
