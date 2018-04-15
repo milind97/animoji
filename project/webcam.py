@@ -6,6 +6,7 @@ import cv2
 import time
 import numpy as np
 from PIL import ImageEnhance, Image
+import os
 
 
 def enhance(frame):
@@ -166,84 +167,51 @@ def calculate(shape, im_floodfill, mask, blank_image):
     return draw(im_floodfill, parameters, blank_image, mask)
 
 
-def start():
-
-    # initialize dlib's face detector
-    print("[INFO] loading facial landmark predictor...")
-    detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
-
-    # initialize the video stream and allow the camera sensor to warm up
-    print("[INFO] camera sensor warming up...")
-    vs = WebcamVideoStream(src=0).start()
-
-    time.sleep(1.0)
+def start(frame, detector, predictor, prev_shape):
 
     # finale frame and frame on which panda will be drawn initially
     blank_image = np.ones((650, 650, 3), np.uint8)*255
     drawing = np.ones((650, 650, 3), np.uint8)*255
 
-    # array to store previous landmarks(used in removing distortion)
-    prev_shape = []
-
     # loop over the frames from the video stream
-    while True:
-        try:
-            # reading frame from webcam and resizing it
-            frame = vs.read()
-            frame = cv2.flip(frame, 1)
-            frame = imutils.resize(frame, width=600)
+    try:
 
-            # Calling function to enhance the frame(for better landmark detection)
-            frame = enhance(frame)
+        # Calling function to enhance the frame(for better landmark detection)
+        frame = enhance(frame)
 
-            # converting frame to grayscale
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # converting frame to grayscale
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-            # detect faces in frame
-            rects = detector(gray, 0)
+        # detect faces in frame
+        rects = detector(gray, 0)
 
-            # clear previous frame
-            blank_image.fill(255)
-            drawing.fill(255)
+        # clear previous frame
+        blank_image.fill(255)
+        drawing.fill(255)
 
-            # distortion handling (averaging last three frames)
-            if rects:
-                if len(prev_shape) == 3:
-                    del (prev_shape[0])
+        # distortion handling (averaging last three frames)
+        if rects:
+            if len(prev_shape) == 2:
+                del (prev_shape[0])
 
-                # predicting facial landmarks for the face, then converting the (x, y)-coordinates to a NumPy array
-                shape = predictor(gray, rects[0])
-                shape = imutils.face_utils.shape_to_np(shape)
+            # predicting facial landmarks for the face, then converting the (x, y)-coordinates to a NumPy array
+            shape = predictor(gray, rects[0])
+            shape = imutils.face_utils.shape_to_np(shape)
 
-                prev_shape.append(shape)
-            shape = sum(prev_shape) // len(prev_shape)
+            prev_shape.append(shape)
+        shape = sum(prev_shape) // len(prev_shape)
 
-            # setup to use flood_fill algorithm
-            th, im_th = cv2.threshold(drawing, 220, 255, cv2.THRESH_BINARY)
-            im_floodfill = im_th.copy()
+        # setup to use flood_fill algorithm
+        th, im_th = cv2.threshold(drawing, 220, 255, cv2.THRESH_BINARY)
+        im_floodfill = im_th.copy()
 
-            # Mask used to flood filling.Notice the size needs to be 2 pixels than the image.(255, 255, 255)
-            h, w = im_th.shape[:2]
-            mask = np.ones((h + 2, w + 2), np.uint8) * 255
+        # Mask used to flood filling.Notice the size needs to be 2 pixels than the image.(255, 255, 255)
+        h, w = im_th.shape[:2]
+        mask = np.ones((h + 2, w + 2), np.uint8) * 255
 
-            # Time to unleash the main code. Calling function calculate.
-            blank_image = calculate(shape, im_floodfill, mask, blank_image)
+        # Time to unleash the main code. Calling function calculate.
+        blank_image = calculate(shape, im_floodfill, mask, blank_image)
 
-            # displaying panda
-            cv2.imshow("Animoji", blank_image)
-            key = cv2.waitKey(1) & 0xFF
-
-            # if the `q` key was pressed, break from the loop
-            if key == ord("q"):
-                break
-        except:
-            pass
-
-    # do a bit of cleanup
-    cv2.destroyAllWindows()
-    vs.stop()
-
-
-if __name__ == "__main__":
-    start()
+        return blank_image, prev_shape
+    except:
+        pass
