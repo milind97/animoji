@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
 <meta charset="UTF-8">
@@ -16,7 +16,7 @@ body, html {
 .bgimg-1 {
     background-position: center;
     background-size: cover;
-    background-image: url("/w3images/mac.jpg");
+    background-image:;
     min-height: 100%;
 }
 .w3-bar .w3-button {
@@ -58,7 +58,7 @@ body, html {
     <span class="w3-xxlarge w3-hide-large w3-hide-medium">Start something that matters</span><br>
     <span class="w3-large">Stop wasting valuable time with projects that just isn't you.</span>
     <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
-  </div> 
+  </div>
 </header>
 
 
@@ -76,6 +76,12 @@ body, html {
             <a href="#" class="w3-bar-item w3-border w3-button">Play</a>
             <a href="#" class="w3-bar-item w3-border w3-button">Stop</a>
         </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th">�</i> View Our Works</a></p>
+      <input id="start" type="button" value="Try it yourself"/>
+    </div>
+    <div class="w3-col m6">
+      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="600" height="600" id="image">
     </div>
   </div>
 </div>
@@ -88,6 +94,7 @@ body, html {
     <div class="w3-col l4 m8 w3-margin-bottom">
       <div class="w3-card">
         <img src="static/Milind.jpeg" alt="Milind" width="418" height="300">
+        <img alt="John" style="width:100%">
         <div class="w3-container">
           <h3>Milind Mahajan</h3>
           <p class="w3-opacity">0812CS151067</p>
@@ -99,6 +106,7 @@ body, html {
     <div class="w3-col l4 m8 w3-margin-bottom">
       <div class="w3-card">
         <img src="/w3images/team1.jpg" alt="Ayush" width="418" height="300">
+        <img alt="Jane" style="width:100%">
         <div class="w3-container">
           <h3>Ayush Walekar</h3>
           <p class="w3-opacity">0812CS15033</p>
@@ -111,6 +119,7 @@ body, html {
     <div class="w3-col l4 m8 w3-margin-bottom">
       <div class="w3-card">
         <img src="static/Bhavya.jpeg" alt="Bhavya" width="418" height="300" >
+        <img alt="Dan" style="width:100%">
         <div class="w3-container">
           <h3>Bhavya Jain</h3>
           <p class="w3-opacity">0812CS151037</p>
@@ -126,4 +135,106 @@ body, html {
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
 </footer>
 </body>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-xxlarge w3-black w3-padding-large w3-display-topright" title="Close Modal Image">�</span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
+<div class="w3-left">
+  <video hidden id="camera" ></video>
+</div>
+<div class="w3-right">
+  <canvas hidden id="canvas"> yha hu me</canvas>
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+</footer>
+
+</body>
+<script type="text/javascript">
+  button = document.getElementById('start');
+img = document.getElementById('image');
+video = document.getElementById('camera')[0];
+canvas = document.getElementById('canvas');
+
+navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia);
+
+//socket initialization
+    var chatSocket = new WebSocket(
+      'ws://' + window.location.host +
+      '/websocket');
+
+  //server response
+    chatSocket.onmessage = function (e) {
+
+      // Jsonn recieved
+      var data = JSON.parse(e.data);
+      var message = data['message'];
+      img.src = 'data:image/png;base64,' +message;
+
+    };
+
+    chatSocket.onclose = function (e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function (e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    button.onclick = function (){
+
+      navigator.getMedia(
+        // constraints
+        { video: true, audio: false },
+
+        // success callback
+        function (localMediaStreamTrack) {
+
+          video.srcObject = localMediaStreamTrack;
+          video.play();
+        },
+
+        //handle error
+        function (error) {
+
+          document.write("Webcam not working");
+          console.log(error);
+        });
+
+        setInterval(capture_frame, 320);
+    };
+
+    var context = canvas.getContext('2d');
+
+    function capture_frame () {
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0);
+      var json_base64 = JSON.stringify(
+        {'message': canvas.toDataURL('image/jpg')})
+      chatSocket.send(json_base64);
+    }
+</script>
+
 </html>
