@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Animoji</title>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -16,7 +16,7 @@ body, html {
 .bgimg-1 {
     background-position: center;
     background-size: cover;
-    background-image: none;
+    background-image:;
     min-height: 100%;
 }
 .w3-bar .w3-button {
@@ -67,25 +67,21 @@ body, html {
 <div class="w3-container w3-light-grey" style="padding:128px 16px">
   <div class="w3-row-padding">
     <div class="w3-col m6">
+      <h3>Animoji</h3>
+      <p>Everyone loves emoji. What fun would text messages be without being able to flirt with a winky face, invite people to dinner with tacos.<br> Animoji, incorporates facial expression of a person on the animated emoji, in real time.</p>
     </div>
     <div class="w3-col m6">
-       <br/>
-       <br/>
-       <br/>
-       <br/>
-       <br/>
-      <h1>Animoji</h1>
-      <p>Everyone loves emoji. What fun would text messages be without being able to flirt with a winky face, invite people to dinner
-        with tacos.
-        <br> Animoji, incorporates facial expression of a person on the animated emoji, in real time.</p>
-      <!-- <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th">�</i> View Our Works</a></p> -->
-      <input id="start" onclick="start_clicked()" type="button" value="Try it yourself"/>
-      <div class="w3-padding-24">
-        <button id="play_pause" onclick="play_pause()" class="w3-bar-item w3-border w3-button">Play</button>
-      </div>
+      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="350" height="700">
+       <div class="w3-padding-24">
+            <a href="#" class="w3-bar-item w3-border w3-button">Play</a>
+            <a href="#" class="w3-bar-item w3-border w3-button">Stop</a>
+        </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th">�</i> View Our Works</a></p>
+      <input id="start" type="button" value="Try it yourself"/>
     </div>
     <div class="w3-col m6">
-      <img src="panda.jpeg" alt="Animoji" width="600" height="500" id="image">
+      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="600" height="600" id="image">
     </div>
   </div>
 </div>
@@ -94,10 +90,11 @@ body, html {
 <div class="w3-container" style="padding:128px 16px" id="team">
   <h3 class="w3-center">THE TEAM</h3>
   <p class="w3-center w3-large">The ones who runs this company</p>
-  <div class="w3-row-padding" style="margin-top:64px">
+  <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
     <div class="w3-col l4 m8 w3-margin-bottom">
       <div class="w3-card">
         <img src="static/Milind.jpeg" alt="Milind" width="418" height="300">
+        <img alt="John" style="width:100%">
         <div class="w3-container">
           <h3>Milind Mahajan</h3>
           <p class="w3-opacity">0812CS151067</p>
@@ -109,6 +106,7 @@ body, html {
     <div class="w3-col l4 m8 w3-margin-bottom">
       <div class="w3-card">
         <img src="/w3images/team1.jpg" alt="Ayush" width="418" height="300">
+        <img alt="Jane" style="width:100%">
         <div class="w3-container">
           <h3>Ayush Walekar</h3>
           <p class="w3-opacity">0812CS15033</p>
@@ -121,6 +119,7 @@ body, html {
     <div class="w3-col l4 m8 w3-margin-bottom">
       <div class="w3-card">
         <img src="static/Bhavya.jpeg" alt="Bhavya" width="418" height="300" >
+        <img alt="Dan" style="width:100%">
         <div class="w3-container">
           <h3>Bhavya Jain</h3>
           <p class="w3-opacity">0812CS151037</p>
@@ -147,35 +146,34 @@ body, html {
 </div>
 
 <div class="w3-left">
-  <br/>
-  <video hidden width="600" height="600" autoplay id="camera"></video>
-  <br/>
+  <video hidden id="camera" ></video>
 </div>
 <div class="w3-right">
-  <canvas id="canvas" hidden></canvas>
+  <canvas hidden id="canvas"> yha hu me</canvas>
 </div>
 
 
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
 </footer>
 
 </body>
 <script type="text/javascript">
-  const  button = document.getElementById('start');
-  const img = document.getElementById('image');
-    var video = document.getElementById('camera');
-    //const canvas = document.getElementById('canvas');
-    //const video = document.getElementsByTagName('video')[0];
+  button = document.getElementById('start');
+img = document.getElementById('image');
+video = document.getElementById('camera')[0];
+canvas = document.getElementById('canvas');
 
-    const canvas = document.getElementById('canvas');
-
-    var play_pause = document.getElementById("play_pause");
-
-
-
-  navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia);
+navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia);
 
 //socket initialization
     var chatSocket = new WebSocket(
@@ -185,8 +183,7 @@ body, html {
   //server response
     chatSocket.onmessage = function (e) {
 
-      // Json recieved
-      //console.log("Json recieved");
+      // Jsonn recieved
       var data = JSON.parse(e.data);
       var message = data['message'];
       img.src = 'data:image/png;base64,' +message;
@@ -197,18 +194,24 @@ body, html {
         console.error('Chat socket closed unexpectedly');
     };
 
-      function start_clicked(){
-      console.log("button clicked start");
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function (e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    button.onclick = function (){
+
       navigator.getMedia(
         // constraints
         { video: true, audio: false },
 
         // success callback
         function (localMediaStreamTrack) {
-          var video = document.getElementsByTagName('video')[0];
+
           video.srcObject = localMediaStreamTrack;
           video.play();
-          //console.log("video width" + video.width);
         },
 
         //handle error
@@ -219,37 +222,18 @@ body, html {
         });
 
         setInterval(capture_frame, 320);
-        //capture_frame();
     };
 
-    //var context = canvas.getContext('2d');
+    var context = canvas.getContext('2d');
 
     function capture_frame () {
-      canvas.width = video.width;
-      canvas.height = video.height;
-      //console.log(canvas.height);
-      //console.log(canvas.width);
-      canvas.getContext('2d').drawImage(video, 0, 0);
-      //console.log(dataURL);
 
-      //Base 64 ko JSON m dal kr.. string bana k server p bhejna.
-      var json_of_base64 = JSON.stringify({ 'message': canvas.toDataURL("image/png") })
-      chatSocket.send(json_of_base64);
-      //console.log(json_of_base64);
-    }
-
-    //play pause button
-    function play_pause() {
-      if(video.paused)
-      {
-        video.play();
-        console.log("playing");
-      }
-      else
-       {
-         console.log("paused");
-         video.pause();
-       }
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0);
+      var json_base64 = JSON.stringify(
+        {'message': canvas.toDataURL('image/jpg')})
+      chatSocket.send(json_base64);
     }
 </script>
 

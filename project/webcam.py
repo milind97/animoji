@@ -1,8 +1,12 @@
+from imutils.video import WebcamVideoStream
 from imutils import face_utils
 import imutils
+import dlib
 import cv2
+import time
 import numpy as np
 from PIL import ImageEnhance, Image
+import os
 
 
 def enhance(frame):
@@ -163,7 +167,11 @@ def calculate(shape, im_floodfill, mask, blank_image):
     return draw(im_floodfill, parameters, blank_image, mask)
 
 
-def start(frame, detector, predictor, prev_shape, blank_image, drawing):
+def start(frame, detector, predictor, prev_shape):
+
+    # finale frame and frame on which panda will be drawn initially
+    blank_image = np.ones((650, 650, 3), np.uint8)*255
+    drawing = np.ones((650, 650, 3), np.uint8)*255
 
     # loop over the frames from the video stream
     try:
@@ -181,43 +189,29 @@ def start(frame, detector, predictor, prev_shape, blank_image, drawing):
         blank_image.fill(255)
         drawing.fill(255)
 
-        # collecting at most last 3 frames
+        # distortion handling (averaging last three frames)
         if rects:
+            if len(prev_shape) == 2:
+                del (prev_shape[0])
 
             # predicting facial landmarks for the face, then converting the (x, y)-coordinates to a NumPy array
             shape = predictor(gray, rects[0])
             shape = imutils.face_utils.shape_to_np(shape)
 
-            if len(prev_shape) == 3:
-                del (prev_shape[0])
-
             prev_shape.append(shape)
+        shape = sum(prev_shape) // len(prev_shape)
 
-        # distortion handling (weighted averaging last three frames)
-        weights = [1, 2, 4]
+        # setup to use flood_fill algorithm
+        th, im_th = cv2.threshold(drawing, 220, 255, cv2.THRESH_BINARY)
+        im_floodfill = im_th.copy()
 
-        if len(prev_shape):
+        # Mask used to flood filling.Notice the size needs to be 2 pixels than the image.(255, 255, 255)
+        h, w = im_th.shape[:2]
+        mask = np.ones((h + 2, w + 2), np.uint8) * 255
 
-            denominator = 0
-            numerator = []
-            for i, val in enumerate(prev_shape):
-                denominator += weights[i]
-                numerator.append(val*weights[i])
-
-            shape = np.sum(numerator, axis=0) // denominator
-
-            # setup to use flood_fill algorithm
-            th, im_th = cv2.threshold(drawing, 220, 255, cv2.THRESH_BINARY)
-            im_floodfill = im_th.copy()
-
-            # Mask used to flood filling.Notice the size needs to be 2 pixels than the image.(255, 255, 255)
-            h, w = im_th.shape[:2]
-            mask = np.ones((h + 2, w + 2), np.uint8) * 255
-
-            # Time to unleash the main code. Calling function calculate.
-            blank_image = calculate(shape, im_floodfill, mask, blank_image)
+        # Time to unleash the main code. Calling function calculate.
+        blank_image = calculate(shape, im_floodfill, mask, blank_image)
 
         return blank_image, prev_shape
-
     except:
         pass
