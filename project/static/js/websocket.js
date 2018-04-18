@@ -1,4 +1,4 @@
-
+``
 //const  start_button = document.getElementById('start');
 var img = document.getElementById('image');
 var video = document.getElementById('camera');
@@ -96,11 +96,10 @@ function capture_frame() {
 
 //play pause button
 function play_pause_func() {
-
   var play_pause = document.getElementById("play_pause");
   if (video.paused) {
     video.play();
-    play_pause.innerText = "Pause";
+    play_pause.innerText = "Stop";
     play_pause.style.backgroundColor = "Red";
   }
   else {

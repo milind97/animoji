@@ -61,7 +61,7 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
         try:
             # using multiprocessing to decrease delay in stream
             async_result = pool.apply_async(start, (frame, detector, predictor, prev_shape, blank_image, drawing))
-        
+
             frame, prev_shape = async_result.get()
 
             # converting numpy array back to base64
@@ -73,7 +73,6 @@ class SimpleWebSocket(tornado.websocket.WebSocketHandler):
             }))
         except:
             await self.write_message(json.dumps({'message': 'error'}))
-            #print("popup ana chahye")
 
     def on_close(self):
         self.connections.remove(self)

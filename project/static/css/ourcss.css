@@ -5,10 +5,9 @@ body, html {
 }
 /* Full height image header */
 .bgimg-1 {
-    background-position: center;
-    background-size: cover;
-    background-image: none;
-    min-height: 100%;
+  background-size: cover;
+  background: url("../images/mac.jpg") center;
+  min-height: 100%;
 }
 .w3-bar .w3-button {
     padding: 16px;
@@ -43,15 +42,16 @@ body, html {
 		vertical-align:middle;
 	}
 
-	
+
 	.ayu-responsive{
 		width: 100%;
 		height: auto;
 	}
-	
+
 	.ayu-panda{
+        width: 20px;
 		transition: width .8s,height .6s;;
-		width: 90%;
+		width: 80%;
 		max-width: 500px;
 		height: auto;
 	}

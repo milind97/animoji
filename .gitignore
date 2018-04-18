@@ -6,3 +6,5 @@
 /Tornado
 /animoji_env
 /project_old
+/.idea
+/project/__pycache__
