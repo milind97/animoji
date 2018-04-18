@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Animoji</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<!-- css links-->
+<link rel="stylesheet" href="static/css/w3css.css">
+<link rel="stylesheet" href="static/css/popupcss.css">
+<link rel="stylesheet" href="static/css/ourcss.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
-body, html {
-    height: 100%;
-    line-height: 1.8;
-}
-/* Full height image header */
-.bgimg-1 {
-    background-position: center;
-    background-size: cover;
-    background-image:;
-    min-height: 100%;
-}
-.w3-bar .w3-button {
-    padding: 16px;
-}
-</style>
+
+
 <body>
 
 <!-- Navbar (sit on top) -->
@@ -66,22 +55,27 @@ body, html {
 <!-- Promo Section - "Animoji" -->
 <div class="w3-container w3-light-grey" style="padding:128px 16px">
   <div class="w3-row-padding">
-    <div class="w3-col m6">
-      <h3>Animoji</h3>
-      <p>Everyone loves emoji. What fun would text messages be without being able to flirt with a winky face, invite people to dinner with tacos.<br> Animoji, incorporates facial expression of a person on the animated emoji, in real time.</p>
+    <div class="w3-col m6 ayu-responsive">
+       <br/>
+       <br/>
+		
+      <h1>Animoji</h1>
+      <p>Everyone loves emoji. What fun would text messages be without being able to flirt with a winky face, invite people to dinner
+        with tacos.
+        <br> Animoji, incorporates facial expression of a person on the animated emoji, in real time.</p>
+      <!-- <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th">�</i> View Our Works</a></p> -->
+      <input id="start" onclick="start_clicked()" type="button" value="Try it yourself"/>
+      <div class="w3-padding-24">
+        <button id="play_pause" onclick="play_pause_func()" class="w3-bar-item w3-border w3-button">Play</button>
+      </div>
     </div>
     <div class="w3-col m6">
-      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="350" height="700">
-       <div class="w3-padding-24">
-            <a href="#" class="w3-bar-item w3-border w3-button">Play</a>
-            <a href="#" class="w3-bar-item w3-border w3-button">Stop</a>
-        </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
-      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th">�</i> View Our Works</a></p>
-      <input id="start" type="button" value="Try it yourself"/>
-    </div>
-    <div class="w3-col m6">
-      <img class="w3-image w3-round-large" src="static/panda.jpeg" alt="Animoji" width="600" height="600" id="image">
+      <div class="popup" onclick="myFunction()">
+        <span class="popuptext" id="myPopup">Can't Detect the face.<br/>
+          Please make sure you are at the approporiate postion.
+        </span>
+      </div>
+      <img class="ayu-panda" src="static/images/panda.jpeg" alt="Animoji"  id="image">
     </div>
   </div>
 </div>
@@ -89,12 +83,11 @@ body, html {
 <!-- Team Section -->
 <div class="w3-container" style="padding:128px 16px" id="team">
   <h3 class="w3-center">THE TEAM</h3>
-  <p class="w3-center w3-large">The ones who runs this company</p>
-  <div class="w3-row-padding w3-grayscale" style="margin-top:64px">
+  <p class="w3-center w3-large">The ones who run this company</p>
+  <div class="w3-row-padding" style="margin-top:64px">
     <div class="w3-col l4 m8 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="static/Milind.jpeg" alt="Milind" width="418" height="300">
-        <img alt="John" style="width:100%">
+      <div class="w3-card ayu-card" >
+        <img  class="profile-image" src="static/images/Milind.jpeg" alt="Milind"/>
         <div class="w3-container">
           <h3>Milind Mahajan</h3>
           <p class="w3-opacity">0812CS151067</p>
@@ -104,9 +97,8 @@ body, html {
       </div>
     </div>
     <div class="w3-col l4 m8 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="/w3images/team1.jpg" alt="Ayush" width="418" height="300">
-        <img alt="Jane" style="width:100%">
+      <div class="w3-card ayu-card">
+        <img class="profile-image" src="static/images/Ayush.jpg" alt="Ayush"/>
         <div class="w3-container">
           <h3>Ayush Walekar</h3>
           <p class="w3-opacity">0812CS15033</p>
@@ -117,11 +109,10 @@ body, html {
     </div>
 
     <div class="w3-col l4 m8 w3-margin-bottom">
-      <div class="w3-card">
-        <img src="static/Bhavya.jpeg" alt="Bhavya" width="418" height="300" >
-        <img alt="Dan" style="width:100%">
+      <div class="w3-card ayu-card">
+        <img class="profile-image" src="static/images/Bhavya.jpeg" alt="Bhavya" width="400" height="300" >
         <div class="w3-container">
-          <h3>Bhavya Jain</h3>
+          <h3>Bhavya Jain</h3>	
           <p class="w3-opacity">0812CS151037</p>
           <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
            <p><button class="w3-button w3-light-grey w3-block">Contact at      <i class="fa fa-facebook-official w3-hover-opacity"></i>  <i class="fa fa-instagram w3-hover-opacity"></i>  <i class="fa fa-linkedin w3-hover-opacity"></i> </button></p>
@@ -134,9 +125,9 @@ body, html {
 <footer class="w3-center w3-black w3-padding-64">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
 </footer>
-</body>
 
-<!-- Modal for full size images on click-->
+
+<!-- Modal for full size images on click -->
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
   <span class="w3-button w3-xxlarge w3-black w3-padding-large w3-display-topright" title="Close Modal Image">�</span>
   <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
@@ -145,96 +136,22 @@ body, html {
   </div>
 </div>
 
+<!-- Hidden Video and Canvas-->
 <div class="w3-left">
-  <video hidden id="camera" ></video>
+  <br/>
+  <video hidden width="600" height="600" autoplay id="camera"></video>
+  <br/>
 </div>
 <div class="w3-right">
-  <canvas hidden id="canvas"> yha hu me</canvas>
+  <canvas id="canvas" hidden></canvas>
 </div>
 
 
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-  <div class="w3-xlarge w3-section">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-  </div>
-</footer>
-
 </body>
-<script type="text/javascript">
-  button = document.getElementById('start');
-img = document.getElementById('image');
-video = document.getElementById('camera')[0];
-canvas = document.getElementById('canvas');
 
-navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia);
+<!-- for handling Websocket-->
+<script src="static/js/websocket.js" type="text/javascript"></script>
 
-//socket initialization
-    var chatSocket = new WebSocket(
-      'ws://' + window.location.host +
-      '/websocket');
 
-  //server response
-    chatSocket.onmessage = function (e) {
-
-      // Jsonn recieved
-      var data = JSON.parse(e.data);
-      var message = data['message'];
-      img.src = 'data:image/png;base64,' +message;
-
-    };
-
-    chatSocket.onclose = function (e) {
-        console.error('Chat socket closed unexpectedly');
-    };
-
-    document.querySelector('#chat-message-input').focus();
-    document.querySelector('#chat-message-input').onkeyup = function (e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#chat-message-submit').click();
-        }
-    };
-
-    button.onclick = function (){
-
-      navigator.getMedia(
-        // constraints
-        { video: true, audio: false },
-
-        // success callback
-        function (localMediaStreamTrack) {
-
-          video.srcObject = localMediaStreamTrack;
-          video.play();
-        },
-
-        //handle error
-        function (error) {
-
-          document.write("Webcam not working");
-          console.log(error);
-        });
-
-        setInterval(capture_frame, 320);
-    };
-
-    var context = canvas.getContext('2d');
-
-    function capture_frame () {
-
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0);
-      var json_base64 = JSON.stringify(
-        {'message': canvas.toDataURL('image/jpg')})
-      chatSocket.send(json_base64);
-    }
-</script>
 
 </html>
