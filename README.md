@@ -18,7 +18,7 @@ Use `pip install -r requirements.txt` to install these python libraries(Use pyth
 ## Web application
 
 Front page:
-![](project/static/images/view.png)
+![](static/images/view.png)
 
 Animoji
-![](project/static/images/animoji.png)
+![](static/images/animoji.png)
