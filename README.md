@@ -11,7 +11,7 @@ Use `pip install -r requirements.txt` to install these python libraries(Use pyth
 - pillow
 
 ## Execution
-1.	Open the terminal. Set path to “project” directory.
+1.	Open the terminal.
 2.	Run server.py using: `python3 server.py`
 3.	Run Index.html on your browser by typing following URL: `http://localhost:8000`
 
