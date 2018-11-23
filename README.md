@@ -1,5 +1,5 @@
 # Animoji on web
-Animoji imitate facial expressions of a person onto a panda, in real time. The application is uses Tornado framework. We use OpenCV and dlib's 68 facial landmarks detector to identify facial expression. 
+Animoji imitate facial expressions of a person onto a panda, in real time. The application uses Tornado framework. We use OpenCV and dlib's 68 facial landmarks detector to identify facial expression. 
 
 ## Installation
 Use `pip install` to install these python libraries(Use python 3.5+):
